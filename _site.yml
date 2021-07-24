@@ -1,0 +1,14 @@
+name: "2021-uci-cosmos-web"
+title: "2021-uci-cosmos-Guest Lecture "
+description: |
+  DSHS 
+output_dir: "docs"
+navbar:
+  right:
+    - text: "UCI Cosmos 2021"
+      href: https://www.cosmos.uci.edu/
+    - text: "DSHS cluster info "
+      href: https://www.cosmos.uci.edu/welcome-to-your-new-website/cluster-1-data-science-in-health-sciences/
+    - text: "DSHS cluster home "
+      href: https://uci-dshs.netlify.app/
+output: distill::distill_article

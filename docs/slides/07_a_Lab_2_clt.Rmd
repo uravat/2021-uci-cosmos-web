@@ -1,0 +1,150 @@
+---
+title: "`R` Activity 2: CLT when sampling from non-normal population"
+author: "Dr. Uma Ravat"
+date: "July 14 2021"
+output: openintro::lab_report
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+options(scipen = 999)
+library(ggplot2)
+library(mosaic)
+```
+
+### Topics 
+
+
+1. Sampling distribution of the sample mean and CLT
+2. Simulation of sampling distribution of sample mean when sampling from not normal population.
+
+**Central Limit Theorem**  can be broadly described as:
+
+> The mean of a large number of randomly sampled measurements from any population (normal or   non-normal population) is approximately normally distributed.
+
+This means that even if the underlying population is **not** normal, as long as the sample size is large, the sampling distribution of the sample mean $\bar{x}$ will be an approximate normal distribution.
+
+Essentially, when taking sample means,
+
+- **Case 1**: When sample size $n$ is large, for any population ( Normal or not)
+    - Distribution of sample mean $\bar{x}$ is  normal
+
+\[
+\bar{x}_n \sim \text{  approx  } N\left(\mu, \frac{\sigma}{\sqrt{n}}\right)
+\]
+
+- **Case 2**: When population is Normal,  even if sample size $n$ is small
+    - Distribution of sample mean $\bar{x}$ is  normal
+
+\[
+\bar{x}_n \sim  N\left(\mu, \frac{\sigma}{\sqrt{n}}\right)
+\]
+
+- **Case 3: **: Population is *not* Normal. Sample size, $n$, is "small".
+    - Distribution of sample mean $\bar{x}$ is **NOT** normal.
+        - Should not use normal approximation 
+    - Distribution of sample mean $\bar{x}$ has a t-distribution with $n-1$ degrees of freedom. 
+<br><br>
+
+## Spanish Flu Example
+
+The following data shows age at death of victims of the Spanish Flu between 1918 and 1920. Data was recorded for 75,034 individuals. The first histogram displays this data.  We will consider this data to be the population that we are sampling from. (We are assuming this is every case of the Spanish Flu.)
+
+```{r hist, cache = TRUE, echo = FALSE}
+
+
+#flu <- read.csv("./data/chap10e6AgesAtDeathSpanishFlu1918.csv")
+flu <- read.csv("https://whitlockschluter.zoology.ubc.ca/wp-content/data/chapter10/chap10e6AgesAtDeathSpanishFlu1918.csv")
+histogram(
+  flu$age,
+  breaks = 100 ,
+  col = "#1381B0",
+  type = "count",
+  dcol = "#FF961C",
+  main = "Distribution of Age at Death During the Spanish Flu",
+  xlab = "Age"
+)
+```
+
+### Exercise 1:  Sampling distribution of sample mean from samples of size $n=2$
+
+
+1. Take a sample of size n=2
+2. Take the mean of the sample and store it in sample_means
+
+Repeat 1 and 2 100000 times and then draw a density histogram for the sample_means. 
+
+Since sample size is small and population is not normal, CLT does not apply and we should not expect to see a normal curve. 
+
+
+```{r n2, cache = TRUE, echo = FALSE}
+N <- 100000
+n <- 2
+
+mu <- 0
+samples <- replicate(N, sample(flu$age, n))
+sample_means <- apply(samples, 2, mean)
+histogram(
+  sample_means,
+  breaks = 100 ,
+  col = "#1381B0",
+  type = "density",
+  density = TRUE,
+  dcol = "orange",
+  main = "Sample size of n = 2",
+  xlab = "Age: Sample Mean"
+)
+```
+
+### Exercise 2:  Sampling distribution of sample mean from samples of size $n=4$
+
+Even though sample size is only 4, the histogram looks close to a normal curve. 
+
+
+```{r n4, cache = TRUE, echo = FALSE}
+N <- 100000
+n <- 4
+
+mu <- 0
+samples <- replicate(N, sample(flu$age, n))
+sample_means <- apply(samples, 2, mean)
+histogram(
+  sample_means,
+  breaks = 100 ,
+  col = "#1381B0",
+  type = "density",
+  density = TRUE,
+  dcol = "orange",
+  main = "Sample size of n = 4",
+  xlab = "Age: Sample Mean"
+)
+```
+
+### Exercise 3:  Sampling distribution of sample mean from samples of size $n=100$
+
+The histogram very closely follows the normal curve. Also notice the spread of this distribution is less as compared to the previous plot.
+
+
+```{r n100, cache = TRUE, echo = FALSE}
+N <- 100000
+n <- 100
+
+mu <- 0
+samples <- replicate(N, sample(flu$age, n))
+sample_means <- apply(samples, 2, mean)
+histogram(
+  sample_means,
+  breaks = 100 ,
+  col = "#1381B0",
+  type = "density",
+  density = TRUE,
+  dcol = "orange",
+  main = "Sample size of n = 100",
+  xlab = "Age: Sample Mean"
+)
+```
+
+
+
+
+------------------------------------------------------------------------
+

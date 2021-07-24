@@ -1,0 +1,13 @@
+{
+  "articles": [
+    {
+      "path": "index.html",
+      "title": "Guest Lecture",
+      "description": "Datascience in Health Sciences Cluster @2021 UCI COSMOS \n",
+      "author": [],
+      "contents": "\nSampling Distribution and confidence intervals\nSlides and R Activities for Guest Lecture given by me are below\nDay 7, Jul 14 2021\nTopic\nLinks\n7a\nSampling distribution and Central limit theorem\nSlides\n\n\nR Activity 1\n\n\nR Activity 2\n7b\nConfidence interval\nSlides\n\n\nR Activity 3\nAbout COSMOS\nThe California State Summer School for Mathematics and Science(COSMOS) is an intensive four-week summer program for talented high school students. COSMOS addresses advanced topics in science, technology, engineering, and math (STEM) fields, including a variety of engineering disciples, pharmaceutical sciences, and computer science and students explore topics that extend beyond the typical high school curriculum.\nOther links to the Data Science in Health Sciences cluster and the Cosmos program are below\nCOSMOS@UCI\nData Science in Health Sciences Cluster @2021 UCI COSMOS Information\nData Science in Health Sciences Cluster website\n\n\n\n",
+      "last_modified": "2021-07-24T06:28:15-07:00"
+    }
+  ],
+  "collections": []
+}

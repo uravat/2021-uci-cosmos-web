@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Confidence intervals</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Uma Ravat University of California at Santa Barbara" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <link rel="stylesheet" href="slide-style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: title-slide
+
+
+
+
+
+
+
+&lt;br&gt;
+&lt;br&gt;
+.right-panel[ 
+
+# Confidence intervals
+## Dr. Uma Ravat
+University of California at Santa Barbara
+
+&lt;br&gt;
+&lt;br&gt;
+Copyright &amp;copy; &lt;a href="https://www.pstat.ucsb.edu/people/uma-ravat"&gt;Dr. Uma Ravat&lt;/a&gt; &amp;nbsp;&amp;nbsp;&lt;a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;CC BY-NC-SA 4.0&lt;/a&gt;
+]
+
+
+
+
+---
+class: middle 
+# Now, let's flip things a bit 
+
+- I do not show you the candy machine or give you any details about it
+- I show you one random sample with 25 candy.
+
+.center[
+&lt;img src="./img/pic-sample-only.png" &gt;
+]
+
+
+- What is best guess/estimate for the proportion of orange candy in the candy machine from which I got my sample?
+
+
+???
+- you can type up your answer in the chat, but wait till i tell you to hit enter
+- Put your guesses in the chat
+- Since you have one sample proportion (= .4), you probably used it as a point estimate of the population proportion I am asking you to guess. 
+
+---
+
+
+&lt;img src="./img/pic-candymachine-sample.png" width="65%" style="display: block; margin: auto;" /&gt;
+
+???
+How many of you were correct?
+---
+class: center middle 
+
+## Quite rare to hit the exact population parameter 
+if you simply use the sample statistic  as a point estimate of the population parameter you are trying to estimate. 
+
+---
+
+## This is what happens in reality: 
+
+- You only have one sample - the data that you have observed/collected.
+- You do not know the population distribution or parameters. 
+- and you need to make _inferences_ about the population parameters based on the one sample you have. 
+.pull-left[
+&lt;img src="./img/pic-sample-only.png" width="65%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="./img/pic-candymachine-sample.png" width="75%" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+class:  middle 
+
+## Ideas to improve our guesstimate so that we are more likely to include the true population parameter ?
+
+- Think about reasons why using `point estimate` as our guess, we will rarely guess the true population parameter correctly?
+    - **Sampling variability**
+- If incorporate sampling variability into our guess by  report a range of plausible values around the point estimate, we have a good shot that the range of values  captures the true proportion of orange candy in the candy machine 
+
+---
+class: middle 
+### How should we incorporate sampling variability (SE) into our estimate/guess for the true population proportion `\(p\)` ?
+    
+
+- By CLT, under certain conditions, `\(\hat{p} \sim  \text{approximately } N(\text{mean} = p, \text{SE} = \sqrt{\frac{p(1-p)}{n}})\)`
+- SE of sampling distribution of `\(\hat{p}\)` can be estimated to be `\(\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\)` since we do not know the true `\(p\)`  and by CLT we can assume `\(\hat{p}\)` is close to `\(p\)`.
+
+---
+class: middle 
+# Confidence intervals
+
+-  are interval estimates (rather than point estimates) that are used to estimate the population parameter
+- includes a plausible range of values for the population parameter by incorporating SE to the point estimate.
+- are calculated at desired levels of confidence generally 95%,99%, 90%, 80% etc
+
+---
+###  95% Confidence Interval  for one proportion
+
+`$$\hat{p} \pm 1.96 \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$` 
+- we estimated SE of `\(\hat{p}\)` to be `\(\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\)` 
+- we assume `\(\hat{p} \sim  \text{approximately normal }\)` 
+- For a normal distribution 95% of the data falls within `1.96` standard deviations of the mean. 
+
+---
+class: middle
+
+.pull-left[
+
+&lt;img src="07_b_ci_prop_files/figure-html/unnamed-chunk-4-1.png" width="400px" /&gt;
+
+]
+
+.pull-right[
+
+```r
+qnorm(0.975, mean = 0 , sd = 1)
+```
+
+```
+## [1] 1.959964
+```
+
+
+```r
+qnorm(0.025, mean = 0 , sd = 1)
+```
+
+```
+## [1] -1.959964
+```
+]
+
+---
+class: inverse middle center
+
+#  Example 
+
+Calculating a confidence interval
+
+---
+.pull-left[
+For our candy sample `\(\hat{p} = 0.4\)` 
+
+&lt;img src="./img/pic-sample-only.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+phat = 0.4 # sample proportion
+n= 25 # sample size 
+SE = round(sqrt((phat*(1-phat))/n),4) 
+SE
+```
+
+```
+## [1] 0.098
+```
+
+```r
+moe = round(1.96*SE,4) 
+moe
+```
+
+```
+## [1] 0.1921
+```
+]
+
+--
+.pull-right[
+so for this sample 
+
+95% Confidence Interval  is calculated as follows
+
+`$$\hat{p} \pm 1.96 \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$`
+
+
+= 0.4 `\(\pm\)` `1.96*` 0.098 
+&lt;br&gt;
+= 0.4 `\(\pm\)` 0.1921
+&lt;br&gt;
+= (0.4 `\(-\)` 0.1921,0.4 `\(+\)` 0.1921 )
+&lt;br&gt;
+= (0.2079,0.5921 )
+&lt;br&gt;
+]
+
+---
+class: middle
+
+For our candy sample `\(\hat{p} = 0.4\)` 
+
+95% Confidence Interval = (0.2079,0.5921 )
+## Interpreting this confidence interval 
+We are 95% confident that the true proportion of orange candy in the candy machine falls between 0.2079 and 0.5921.
+
+#### Got it right this time!
+
+ Our interval estimate includes `\(p = 0.57\)`!
+
+--
+- .important[We only know we are right because I showed you the contents of the candy machine. Otherwise, there is no way to know whether we got it right or wrong.]
+
+---
+
+class: inverse middle
+
+
+# Activity 1: Calculating Confidence Intervals
+
+1. Go [here](http://www.rossmanchance.com/applets/2021/oneprop/OneProp.htm?candy=1)
+2. Draw one candy samples of size 25 from the candy machine with `\(p = 0.57\)`
+3. build a confidence intervals for this sample
+4. Does the interval you constructed include the true `\(p = 0.57\)`?
+5. Put your answer in the chat. 
+
+
+---
+class: middle
+
+.pull-left[
+For another candy sample `\(\hat{p} = 0.36\)` 
+
+&lt;img src="./img/pic-sample-only2.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+phat = 0.36
+n= 25
+SE = round(sqrt((phat*(1-phat))/n),4)
+SE
+```
+
+```
+## [1] 0.096
+```
+
+```r
+moe = round(1.96*SE,4)
+moe
+```
+
+```
+## [1] 0.1882
+```
+]
+
+--
+.pull-right[
+so for this sample 
+
+95% Confidence Interval  is calculated as follows
+
+`$$\hat{p} \pm 1.96 \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$`
+
+
+= 0.36 `\(\pm\)` `1.96*` 0.096 
+&lt;br&gt;
+= 0.36 `\(\pm\)` 0.1882
+&lt;br&gt;
+= (0.36 `\(-\)` 0.1882,0.36 `\(+\)` 0.1882 )
+&lt;br&gt;
+= (0.1718,0.5482 )
+&lt;br&gt;
+= (0.1718,0.5482 )
+
+]
+
+---
+class: middle
+
+For another candy sample `\(\hat{p} = 0.36\)` 
+
+95% Confidence Interval = (0.1718,0.5482)
+
+### Interpreting this confidence interval 
+We are 95% confident that the true proportion of orange candy in the candy machine falls between 0.1718 and 0.5482.
+
+#### Got it **wrong** this time!
+
+Our interval estimate **does not** include `\(p = 0.57\)` :(
+
+- .important[We only know we are wrong because I showed you the contents of the candy machine. Otherwise, there is no way to know whether we got it right or wrong.]
+
+---
+class: inverse middle 
+# Activity 2: Simulating Confidence Intervals
+We will draw candy samples of size 25 from the candy machine with `\(p = 0.57\)`, build a confidence intervals for each sample and study the confidence intervals 
+
+
+1. Go [here](http://www.rossmanchance.com/applets/2021/confsim/ConfSim.html)
+2. In **Describe process:**
+set Statistic = Proportions, Distribution = Binomial, Method = Walds ( since we are using the z-interval), `\(p\)`, the population proportion = 0.57, sample size = 25, number of intervals = 1
+3. Confidence interval = 95%
+4. Click the button Sample a few times
+
+
+---
+class: middle
+
+# Why do we say 95% confidence ? 
+
+Suppose we take many samples and build a confidence interval corresponding to each sample using the equation 
+
+`point estimate ± 1.96×SE`.
+
+then 
+
+
+- about **95%** of all these intervals we constructed would **contain the true population proportion** `\(p\)` (which is 0.57 in our example) 
+- about 5% of all these intervals would not contain the true population proportion `\(p\)`
+
+
+---
+class: middle
+In other words, to guess the **unknown population parameter**, 
+
+if we use the equation `point estimate ± 1.96×SE` instead of  just guessing `point estimate`,
+
+then the interval we provide will correctly include the unknown population parameter 95% of the time. 
+
+That is **awesome** considering that guessing using just the `point estimate` would most often be wrong ! :-) 
+
+---
+
+class: inverse middle center
+
+# Things about Confidence levels
+
+---
+class: middle
+
+# Confidence levels
+
+Commonly used confidence levels in practice are 90%, 95%, 98%, and 99%.
+
+A confidence interval can be calculated using the formula
+
+$$ \text{point estimate} \pm z^\star \times \text{SE} $$ 
+
+
+- `\(z^\star\)` is called the critical value.
+- `\(z^\star \times SE\)` is called the _margin of error_
+- width of CI = 2 X margin of error
+
+---
+class: middle
+
+#  Width of a confidence interval
+
+If we want to be more certain that we capture the population parameter, i.e. increase our confidence level, should we use a wider interval or a smaller interval?
+
+--
+
+_A wider interval._
+
+---
+class: middle
+
+### Can you see any drawbacks to using a wider interval?
+&lt;img src="./img/garfield.png"  width="900" height="250"&gt;
+
+--
+
+_If the interval is too wide it may not be very informative._
+.footnote[Source: OpenIntro.org]
+
+---
+class: middle
+
+# Changing confidence levels 
+
+$$ \text{point estimate} \pm z^\star \times \text{SE} $$ 
+
+In the above formula, for a given sample, 
+
+- point estimate is the sample statistic ( `\(\hat{p}\)` )
+- SE is the standard error which is approx `\(\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\)` 
+
+Thus, as confidence level changes **only** 
+-  `\(z^\star\)` in the above formula needs to be adjusted according to confidence level
+
+
+---
+class: middle
+### For a 95% confidence interval, why is `\(z^\star = 1.96\)`?
+.pull-left[
+
+&lt;img src="07_b_ci_prop_files/figure-html/unnamed-chunk-11-1.png" width="380px" /&gt;
+]
+
+.pull-right[
+
+
+```r
+qnorm(0.025, mean = 0 , sd = 1) 
+```
+
+```
+## [1] -1.959964
+```
+
+
+```r
+qnorm(0.975, mean = 0 , sd = 1) # critical value
+```
+
+```
+## [1] 1.959964
+```
+
+]
+
+---
+class: middle
+# Exercise: 
+
+### What is `\(z^\star\)` for a 98% confidence interval?
+
+--
+.pull-left[
+
+&lt;img src="07_b_ci_prop_files/figure-html/unnamed-chunk-14-1.png" width="400px" /&gt;
+]
+
+--
+.pull-right[
+
+
+```r
+qnorm(0.01, mean = 0 , sd = 1)
+```
+
+```
+## [1] -2.326348
+```
+
+
+```r
+qnorm(0.99, mean = 0 , sd = 1) # critical value
+```
+
+```
+## [1] 2.326348
+```
+
+]
+
+---
+class: middle
+
+# Width of the confidence interval 
+
+CI = `\(\text{point estimate} \pm \text { critical value} \times \text{standard error}\)`
+
+- Higher level of confidence means larger critical value.
+- Larger critical value means higher margin of error.
+- Higher margin of error means wider CI.
+
+Thus 99% CI would be the wider compared to 95% CI
+
+---
+class: middle
+
+## Constructing Confidence Intervals 
+
+point estimate `\(\pm\)` critical value `\(\times\)` standard error
+
+
+1. Calculate point estimate.
+2. Calculate critical value. Use `R` to calculate this 
+3. Calculate standard error.
+4. Construct the confidence interval.
+
+---
+class: middle
+## Confidence Intervals for other population parameters
+
+Confidence Interval = point estimate `\(\pm\)` critical value `\(\times\)` SE of the estimate
+
+
+|                               | Parameter of Interest | Point Estimate  | critical value | standard error of the estimate                    |
+|-------------------------------|-----------------------|-----------------------------------|
+| Proportion                    | `\(p\)`                 | `\(\hat{p}\)`                               |z             | `\(\sqrt{\frac{p(1-p)}{n}}\)`                         |
+| Mean                          | `\(\mu\)`                 | `\(\bar x\)`                          |z for large n or t for small n          | `\(\sqrt{\frac{s^2}{n}}\)`                         |
+
+
+`\(p\)` is the sample proportion,
+`\(\bar{x}\)` is the sample mean, 
+`\(s^2\)` is the sample variance. 
+
+Conditions for CLT should hold to be able to use z as critical value 
+
+---
+class: middle
+# Conditions for CLT to hold 
+
+- random sample (each observation is independently drawn.)
+- for proportions
+    - np and n(1-p) large (10 or more)
+- for means 
+    - sample size n should be large (30 or more)
+    - if sample size n is small, then use t distribution with `\(n-1\)` degrees of freedom to find the critical value
+    
+    
+---
+class: middle 
+# Finding t critical value for 95% CI when `\(n = 15\)`
+
+![](07_b_ci_prop_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+
+The critical value is:
+
+
+```r
+qt(0.975, df = 14)
+```
+
+```
+## [1] 2.144787
+```
+
+
+
+---
+class: middle 
+
+Confidence intervals are ...
+
+
+- interval estimates for population parameters constructed from a sample 
+- only about population parameters, not individual observations
+- confidence is in the process used to generate the confidence intervals 
+- confidence is not in the fact that the confidence interval contains or does not contain the population parameter
+
+.important[There is no probability associated with a confidence interval. Either the population parameter is in the interval or not.]
+
+---
+
+# Acknowledgement 
+
+Thanks to Dr Mine Dogucu for suggestions for improvement of this material. 
+
+This content has been developed and shaped by referring to several materials including
+
+1. [Dr. Allan Rossman's Ask good questions blog](https://askgoodquestions.blog/)
+2. [OpenIntro.org resources](https://www.openintro.org/book/os/)
+3. [Dr. Mine Dogucu materials](https://mdogucu.ics.uci.edu/l) 
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "%current%",
+"highlightStyle": "pygments",
+"highlightLines": true,
+"highlightLanguage": "r",
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+(function(time) {
+  var d2 = function(number) {
+    return ('0' + number).slice(-2); // left-pad 0 to minutes/seconds
+  },
+
+  time_format = function(total) {
+    var secs = Math.abs(total) / 1000;
+    var h = Math.floor(secs / 3600);
+    var m = Math.floor(secs % 3600 / 60);
+    var s = Math.round(secs % 60);
+    var res = d2(m) + ':' + d2(s);
+    if (h > 0) res = h + ':' + res;
+    return res;  // [hh:]mm:ss
+  },
+
+  slide_number_div = function(i) {
+    return document.getElementsByClassName('remark-slide-number').item(i);
+  },
+
+  current_page_number = function(i) {
+    return slide_number_div(i).firstChild.textContent;  // text "i / N"
+  };
+
+  var timer = document.createElement('span'); timer.id = 'slide-time-left';
+  var time_left = time, k = slideshow.getCurrentSlideIndex(),
+      last_page_number = current_page_number(k);
+
+  setInterval(function() {
+    time_left = time_left - 1000;
+    timer.innerHTML = ' ' + time_format(time_left);
+    if (time_left < 0) timer.style.color = 'red';
+  }, 1000);
+
+  slide_number_div(k).appendChild(timer);
+
+  slideshow.on('showSlide', function(slide) {
+    var i = slide.getSlideIndex(), n = current_page_number(i);
+    // reset timer when a new slide is shown and the page number is changed
+    if (last_page_number !== n) {
+      time_left = time; last_page_number = n;
+      timer.innerHTML = ' ' + time_format(time); timer.style.color = null;
+    }
+    slide_number_div(i).appendChild(timer);
+  });
+})(60000);
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
